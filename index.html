@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Razor Elite - Barbería Premium</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Color palette */
+      --color-dark: #1a1a1a;
+      --color-darker: #111111;
+      --color-light: #ffffff;
+      --color-accent: #c8a97e;
+      --color-accent-light: #e9dcc6;
+      --color-accent-dark: #a48a64;
+      --color-gray-100: #f8f9fa;
+      --color-gray-200: #e9ecef;
+      --color-gray-300: #dee2e6;
+      --color-gray-400: #ced4da;
+      --color-gray-500: #adb5bd;
+      --color-gray-600: #6c757d;
+      --color-gray-700: #495057;
+      --color-gray-800: #343a40;
+      --color-gray-900: #212529;
+      --color-success: #10b981;
+      --color-error: #ef4444;
+      --color-warning: #f59e0b;
+      
+      /* Spacing */
+      --spacing-xs: 0.25rem;
+      --spacing-sm: 0.5rem;
+      --spacing-md: 1rem;
+      --spacing-lg: 1.5rem;
+      --spacing-xl: 2rem;
+      --spacing-2xl: 2.5rem;
+      --spacing-3xl: 3rem;
+      --spacing-4xl: 4rem;
+      
+      /* Border radius */
+      --radius-sm: 0.25rem;
+      --radius-md: 0.5rem;
+      --radius-lg: 0.75rem;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+      --radius-full: 9999px;
+      
+      /* Shadows */
+      --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      
+      /* Typography */
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+      
+      /* Transitions */
+      --transition-fast: 0.15s ease;
+      --transition-normal: 0.3s ease;
+      --transition-slow: 0.5s ease;
+      
+      /* Container max width */
+      --container-max-width: 1280px;
+      --container-padding: var(--spacing-lg);
+    }
+
+    /* Reset & Base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 80px;
+    }
+    
+    body {
+      font-family: var(--font-body);
+      color: var(--color-gray-800);
+      line-height: 1.6;
+      background-color: var(--color-light);
+      overflow-x: hidden;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+      transition: var(--transition-fast);
+    }
+    
+    ul, ol {
+      list-style: none;
+    }
+    
+    button, input, select, textarea {
+      font: inherit;
+      color: inherit;
+    }
+    
+    button {
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-dark);
+    }
+    
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: var(--spacing-xl);
+      position: relative;
+    }
+    
+    h2::after {
+      content: '';
+      position: absolute;
+      bottom: -0.5rem;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background-color: var(--color-accent);
+    }
+    
+    h3 {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    p {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .text-accent {
+      color: var(--color-accent);
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .text-sm {
+      font-size: 0.875rem;
+    }
+    
+    .text-lg {
+      font-size: 1.125rem;
+    }
+    
+    .text-xl {
+      font-size: 1.25rem;
+    }
+    
+    .text-2xl {
+      font-size: 1.5rem;
+    }
+    
+    .font-bold {
+      font-weight: 700;
+    }
+    
+    .text-uppercase {
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    /* Layout */
+    .container {
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    
+    .section {
+      padding: var(--spacing-4xl) 0;
+      position: relative;
+    }
+    
+    .section--dark {
+      background-color: var(--color-dark);
+      color: var(--color-light);
+    }
+    
+    .section--dark h2,
+    .section--dark h3 {
+      color: var(--color-light);
+    }
+    
+    .section--gray {
+      background-color: var(--color-gray-100);
+    }
+    
+    .section--pattern {
+      background-color: var(--color-dark);
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c8a97e' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      color: var(--color-light);
+    }
+    
+    .section--accent {
+      background-color: var(--color-accent-light);
+    }
+    
+    .section-header {
+      max-width: 800px;
+      margin: 0 auto var(--spacing-3xl);
+      text-align: center;
+    }
+    
+    .section-header h2::after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .section-header p {
+      font-size: 1.125rem;
+      color: var(--color-gray-600);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .grid {
+      display: grid;
+      gap: var(--spacing-xl);
+    }
+    
+    .grid-2 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .grid-3 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .grid-4 {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    
+    .flex {
+      display: flex;
+    }
+    
+    .flex-col {
+      flex-direction: column;
+    }
+    
+    .items-center {
+      align-items: center;
+    }
+    
+    .justify-between {
+      justify-content: space-between;
+    }
+    
+    .justify-center {
+      justify-content: center;
+    }
+    
+    .gap-sm {
+      gap: var(--spacing-sm);
+    }
+    
+    .gap-md {
+      gap: var(--spacing-md);
+    }
+    
+    .gap-lg {
+      gap: var(--spacing-lg);
+    }
+    
+    .gap-xl {
+      gap: var(--spacing-xl);
+    }
+    
+    .mt-sm { margin-top: var(--spacing-sm); }
+    .mt-md { margin-top: var(--spacing-md); }
+    .mt-lg { margin-top: var(--spacing-lg); }
+    .mt-xl { margin-top: var(--spacing-xl); }
+    .mt-2xl { margin-top: var(--spacing-2xl); }
+    
+    .mb-sm { margin-bottom: var(--spacing-sm); }
+    .mb-md { margin-bottom: var(--spacing-md); }
+    .mb-lg { margin-bottom: var(--spacing-lg); }
+    .mb-xl { margin-bottom: var(--spacing-xl); }
+    .mb-2xl { margin-bottom: var(--spacing-2xl); }
+    
+    /* Components */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-md) var(--spacing-xl);
+      border-radius: var(--radius-md);
+      font-weight: 500;
+      transition: var(--transition-normal);
+      text-align: center;
+    }
+    
+    .btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .btn-primary {
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+      border: 1px solid transparent;
+    }
+    
+    .btn-primary:hover {
+      background-color: var(--color-accent-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-accent);
+      border: 1px solid var(--color-accent);
+    }
+    
+    .btn-secondary:hover {
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-dark {
+      background-color: var(--color-dark);
+      color: var(--color-light);
+      border: 1px solid transparent;
+    }
+    
+    .btn-dark:hover {
+      background-color: var(--color-darker);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-light {
+      background-color: var(--color-light);
+      color: var(--color-dark);
+      border: 1px solid var(--color-gray-300);
+    }
+    
+    .btn-light:hover {
+      background-color: var(--color-gray-100);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .btn-lg {
+      padding: var(--spacing-md) var(--spacing-2xl);
+      font-size: 1.125rem;
+    }
+    
+    .btn-sm {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: 0.875rem;
+    }
+    
+    .card {
+      background-color: var(--color-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: var(--transition-normal);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .card-img {
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      width: 100%;
+    }
+    
+    .card-content {
+      padding: var(--spacing-xl);
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .card-title {
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.25rem;
+    }
+    
+    .card-text {
+      color: var(--color-gray-600);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .card-footer {
+      margin-top: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: 0.75rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .badge-accent {
+      background-color: var(--color-accent-light);
+      color: var(--color-accent-dark);
+    }
+    
+    .badge-dark {
+      background-color: var(--color-dark);
+      color: var(--color-light);
+    }
+    
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
+    }
+    
+    .avatar-lg {
+      width: 80px;
+      height: 80px;
+    }
+    
+    .divider {
+      height: 1px;
+      background-color: var(--color-gray-300);
+      margin: var(--spacing-xl) 0;
+    }
+    
+    /* Navigation */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background-color: transparent;
+      transition: var(--transition-normal);
+      padding: var(--spacing-md) 0;
+    }
+    
+    .navbar.scrolled {
+      background-color: var(--color-dark);
+      padding: var(--spacing-sm) 0;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .navbar-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--color-light);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+    }
+    
+    .nav-links {
+      display: none;
+      gap: var(--spacing-xl);
+      align-items: center;
+    }
+    
+    .nav-link {
+      color: var(--color-light);
+      font-weight: 500;
+      position: relative;
+    }
+    
+    .nav-link:hover {
+      color: var(--color-accent);
+    }
+    
+    .nav-link.active {
+      color: var(--color-accent);
+    }
+    
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background-color: var(--color-accent);
+    }
+    
+    .nav-cta {
+      margin-left: var(--spacing-md);
+    }
+    
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      color: var(--color-light);
+    }
+    
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      max-width: 400px;
+      height: 100vh;
+      background-color: var(--color-dark);
+      padding: var(--spacing-2xl);
+      transition: var(--transition-normal);
+      z-index: 1001;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--spacing-xl);
+    }
+    
+    .mobile-menu-close {
+      color: var(--color-light);
+      font-size: 1.5rem;
+    }
+    
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+    
+    .mobile-nav-link {
+      color: var(--color-light);
+      font-size: 1.25rem;
+      font-weight: 500;
+      padding: var(--spacing-sm) 0;
+      border-bottom: 1px solid var(--color-gray-800);
+    }
+    
+    .mobile-nav-link:hover {
+      color: var(--color-accent);
+    }
+    
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition-normal);
+    }
+    
+    .overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    /* Hero Section */
+    .hero {
+      height: 100vh;
+      min-height: 600px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      color: var(--color-light);
+      padding: var(--spacing-3xl) 0;
+      background-color: var(--color-dark);
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      opacity: 0.4;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+    }
+    
+    .hero h1 {
+      color: var(--color-light);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .hero-btns {
+      display: flex;
+      gap: var(--spacing-md);
+      flex-wrap: wrap;
+      margin-top: var(--spacing-2xl);
+    }
+    
+    .hero-scroll {
+      position: absolute;
+      bottom: var(--spacing-2xl);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--spacing-md);
+      color: var(--color-light);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    
+    .hero-scroll-icon {
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(-20px);
+      }
+      60% {
+        transform: translateY(-10px);
+      }
+    }
+    
+    /* About Section */
+    .about-img {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .about-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+    
+    .about-features {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr);
+      gap: var(--spacing-lg);
+      margin-top: var(--spacing-xl);
+    }
+    
+    .about-feature {
+      display: flex;
+      gap: var(--spacing-md);
+      align-items: flex-start;
+    }
+    
+    .about-feature-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background-color: var(--color-accent-light);
+      color: var(--color-accent-dark);
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+    
+    .about-feature-content h4 {
+      margin-bottom: var(--spacing-xs);
+    }
+    
+    .about-feature-content p {
+      color: var(--color-gray-600);
+      font-size: 0.9375rem;
+      margin-bottom: 0;
+    }
+    
+    /* Services Section */
+    .service-card {
+      background-color: var(--color-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-normal);
+      height: 100%;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .service-img {
+      height: 240px;
+      overflow: hidden;
+    }
+    
+    .service-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-normal);
+    }
+    
+    .service-card:hover .service-img img {
+      transform: scale(1.05);
+    }
+    
+    .service-content {
+      padding: var(--spacing-xl);
+    }
+    
+    .service-badge {
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .service-title {
+      margin-bottom: var(--spacing-sm);
+      font-size: 1.25rem;
+    }
+    
+    .service-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-gray-600);
+      font-size: 0.9375rem;
+    }
+    
+    .service-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--color-accent);
+    }
+    
+    /* Barbers Section */
+    .barber-card {
+      background-color: var(--color-light);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-normal);
+      height: 100%;
+    }
+    
+    .barber-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-xl);
+    }
+    
+    .barber-img {
+      height: 320px;
+      overflow: hidden;
+    }
+    
+    .barber-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-normal);
+    }
+    
+    .barber-card:hover .barber-img img {
+      transform: scale(1.05);
+    }
+    
+    .barber-content {
+      padding: var(--spacing-xl);
+      text-align: center;
+    }
+    
+    .barber-badge {
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .barber-name {
+      margin-bottom: var(--spacing-xs);
+      font-size: 1.25rem;
+    }
+    
+    .barber-role {
+      color: var(--color-gray-600);
+      font-size: 0.9375rem;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .barber-socials {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-md);
+      margin-top: var(--spacing-md);
+    }
+    
+    .barber-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      background-color: var(--color-gray-100);
+      color: var(--color-gray-700);
+      border-radius: var(--radius-full);
+      transition: var(--transition-fast);
+    }
+    
+    .barber-social:hover {
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+      transform: translateY(-2px);
+    }
+    
+    /* Testimonials Section */
+    .testimonials-container {
+      position: relative;
+      padding: var(--spacing-xl) 0;
+    }
+    
+    .testimonial-card {
+      background-color: var(--color-light);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-xl);
+      box-shadow: var(--shadow-md);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .testimonial-stars {
+      color: var(--color-warning);
+      display: flex;
+      gap: var(--spacing-xs);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .testimonial-text {
+      font-style: italic;
+      margin-bottom: var(--spacing-xl);
+      flex-grow: 1;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+    }
+    
+    .testimonial-author-info h4 {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+    
+    .testimonial-author-info p {
+      margin-bottom: 0;
+      color: var(--color-gray-600);
+      font-size: 0.875rem;
+    }
+    
+    /* Booking Section */
+    .booking-container {
+      background-color: var(--color-light);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: var(--spacing-2xl);
+      position: relative;
+    }
+    
+    .form-group {
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: var(--spacing-sm);
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-md);
+      background-color: var(--color-light);
+      transition: var(--transition-fast);
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-accent-light);
+    }
+    
+    .service-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .service-option {
+      position: relative;
+    }
+    
+    .service-option input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .service-option label {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .service-option input:checked + label {
+      background-color: var(--color-accent-light);
+      border-color: var(--color-accent);
+      color: var(--color-accent-dark);
+    }
+    
+    .service-option label:hover {
+      border-color: var(--color-accent);
+    }
+    
+    .barber-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .barber-option {
+      position: relative;
+      flex: 1;
+      min-width: 150px;
+    }
+    
+    .barber-option input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .barber-option label {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-lg);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+    
+    .barber-option input:checked + label {
+      background-color: var(--color-accent-light);
+      border-color: var(--color-accent);
+    }
+    
+    .barber-option label:hover {
+      border-color: var(--color-accent);
+    }
+    
+    .barber-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: var(--radius-full);
+      object-fit: cover;
+      border: 2px solid transparent;
+      transition: var(--transition-fast);
+    }
+    
+    .barber-option input:checked + label .barber-avatar {
+      border-color: var(--color-accent);
+    }
+    
+    .barber-info h4 {
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+    
+    .barber-info p {
+      margin-bottom: 0;
+      color: var(--color-gray-600);
+      font-size: 0.875rem;
+    }
+    
+    .time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-sm);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .time-slot {
+      position: relative;
+    }
+    
+    .time-slot input {
+      position: absolute;
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    
+    .time-slot label {
+      display: inline-block;
+      padding: var(--spacing-sm) var(--spacing-md);
+      border: 1px solid var(--color-gray-300);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition-fast);
+      font-size: 0.875rem;
+    }
+    
+    .time-slot input:checked + label {
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+      color: var(--color-dark);
+    }
+    
+    .time-slot label:hover {
+      border-color: var(--color-accent);
+    }
+    
+    .time-slot input:disabled + label {
+      opacity: 0.5;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    
+    .booking-summary {
+      background-color: var(--color-gray-100);
+      border: 1px dashed var(--color-gray-400);
+      border-radius: var(--radius-lg);
+      padding: var(--spacing-lg);
+      margin-top: var(--spacing-xl);
+    }
+    
+    .booking-summary-title {
+      font-size: 1.125rem;
+      margin-bottom: var(--spacing-md);
+      color: var(--color-dark);
+    }
+    
+    .booking-summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .booking-summary-label {
+      color: var(--color-gray-600);
+    }
+    
+    .booking-summary-value {
+      font-weight: 500;
+    }
+    
+    .booking-summary-total {
+      display: flex;
+      justify-content: space-between;
+      padding-top: var(--spacing-md);
+      margin-top: var(--spacing-md);
+      border-top: 1px solid var(--color-gray-300);
+      font-weight: 700;
+    }
+    
+    .booking-summary-price {
+      color: var(--color-accent);
+      font-size: 1.25rem;
+    }
+    
+    .booking-notification {
+      display: none;
+      align-items: center;
+      gap: var(--spacing-md);
+      padding: var(--spacing-md);
+      background-color: var(--color-success);
+      color: var(--color-light);
+      border-radius: var(--radius-md);
+      margin-top: var(--spacing-lg);
+    }
+    
+    .booking-notification.active {
+      display: flex;
+      animation: fadeIn 0.5s;
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Contact Section */
+    .contact-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-xl);
+    }
+    
+    .contact-map {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 400px;
+      box-shadow: var(--shadow-md);
+    }
+    
+    .contact-map iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xl);
+    }
+    
+    .contact-card {
+      display: flex;
+      gap: var(--spacing-lg);
+      padding: var(--spacing-lg);
+      background-color: var(--color-light);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      transition: var(--transition-normal);
+    }
+    
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+    }
+    
+    .contact-card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+    
+    .contact-card-content h4 {
+      margin-bottom: var(--spacing-xs);
+      font-size: 1.125rem;
+    }
+    
+    .contact-card-content p {
+      color: var(--color-gray-600);
+      margin-bottom: 0;
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--color-dark);
+      color: var(--color-gray-400);
+      padding: var(--spacing-4xl) 0 var(--spacing-xl);
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--spacing-2xl);
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      color: var(--color-light);
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .footer-about {
+      margin-bottom: var(--spacing-lg);
+      max-width: 400px;
+    }
+    
+    .footer-socials {
+      display: flex;
+      gap: var(--spacing-md);
+    }
+    
+    .footer-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--color-gray-800);
+      color: var(--color-light);
+      border-radius: var(--radius-full);
+      transition: var(--transition-fast);
+    }
+    
+    .footer-social:hover {
+      background-color: var(--color-accent);
+      color: var(--color-dark);
+      transform: translateY(-2px);
+    }
+    
+    .footer-heading {
+      color: var(--color-light);
+      font-size: 1.25rem;
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+    }
+    
+    .footer-link {
+      color: var(--color-gray-400);
+      transition: var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    
+    .footer-link:hover {
+      color: var(--color-accent);
+      transform: translateX(4px);
+    }
+    
+    .footer-link svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .footer-contact-item {
+      display: flex;
+      gap: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .footer-contact-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background-color: var(--color-gray-800);
+      color: var(--color-accent);
+      border-radius: var(--radius-full);
+      flex-shrink: 0;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid var(--color-gray-800);
+      margin-top: var(--spacing-2xl);
+      padding-top: var(--spacing-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-md);
+      text-align: center;
+    }
+    
+    .footer-bottom-links {
+      display: flex;
+      justify-content: center;
+      gap: var(--spacing-lg);
+      flex-wrap: wrap;
+    }
+    
+    .footer-bottom-link {
+      color: var(--color-gray-400);
+      font-size: 0.875rem;
+    }
+    
+    .footer-bottom-link:hover {
+      color: var(--color-accent);
+    }
+    
+    .footer-copyright {
+      font-size: 0.875rem;
+    }
+    
+    /* Responsive */
+    @media (min-width: 576px) {
+      .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .about-features {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .time-slots {
+        gap: var(--spacing-md);
+      }
+    }
+    
+    @media (min-width: 768px) {
+      .grid-3 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .nav-links {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: none;
+      }
+      
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .contact-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .about-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-3xl);
+        align-items: center;
+      }
+      
+      .footer-grid {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+      }
+      
+      .booking-form {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-xl);
+      }
+      
+      .booking-form .form-group.full {
+        grid-column: span 2;
+      }
+    }
+    
+    @media (min-width: 1200px) {
+      .container {
+        padding: 0 var(--spacing-2xl);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header & Navigation -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar-container">
+      <a href="#" class="logo">
+        <span class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10V11l-5-7-5 7v10Z"/><path d="M11 13h2"/></svg>
+        </span>
+        <span>Razor Elite</span>
+      </a>
+      
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active">Inicio</a>
+        <a href="#servicios" class="nav-link">Servicios</a>
+        <a href="#barberos" class="nav-link">Barberos</a>
+        <a href="#testimonios" class="nav-link">Testimonios</a>
+        <a href="#contacto" class="nav-link">Contacto</a>
+        <a href="#reservar" class="btn btn-primary nav-cta">Reservar</a>
+      </nav>
+      
+      <button class="mobile-menu-btn" id="mobile-menu-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobile-menu">
+    <div class="mobile-menu-header">
+      <a href="#" class="logo">
+        <span class="logo-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10V11l-5-7-5 7v10Z"/><path d="M11 13h2"/></svg>
+        </span>
+        <span>Razor Elite</span>
+      </a>
+      <button class="mobile-menu-close" id="mobile-menu-close">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <nav class="mobile-nav-links">
+      <a href="#home" class="mobile-nav-link">Inicio</a>
+      <a href="#servicios" class="mobile-nav-link">Servicios</a>
+      <a href="#barberos" class="mobile-nav-link">Barberos</a>
+      <a href="#testimonios" class="mobile-nav-link">Testimonios</a>
+      <a href="#contacto" class="mobile-nav-link">Contacto</a>
+    </nav>
+    <a href="#reservar" class="btn btn-primary">Reservar Ahora</a>
+  </div>
+  <div class="overlay" id="overlay"></div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="home">
+    <div class="container">
+      <div class="hero-content">
+        <span class="badge badge-accent">Barbería Premium en Santiago</span>
+        <h1>Estilo y <span class="text-accent">precisión</span> en cada corte</h1>
+        <p class="text-lg">Experimenta la barbería de nueva generación en Santiago. Atención personalizada, barberos expertos y la mejor experiencia para transformar tu imagen.</p>
+        <div class="hero-btns">
+          <a href="#reservar" class="btn btn-primary btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+            Reserva tu hora
+          </a>
+          <a href="#servicios" class="btn btn-secondary btn-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" x2="2" y1="8" y2="22"/><line x1="17.5" x2="9" y1="15" y2="15"/></svg>
+            Ver servicios
+          </a>
+        </div>
+      </div>
+      <a href="#servicios" class="hero-scroll">
+        <span>Descubre más</span>
+        <span class="hero-scroll-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nuestros Servicios</h2>
+        <p>Ofrecemos una amplia gama de servicios profesionales para que luzcas y te sientas mejor. Cada servicio está diseñado para brindarte la mejor experiencia.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://barbershopconnect.com/cdn/shop/articles/Classic-Haircuts-for-men.jpg?v=1684333920&width=1600" alt="Corte clásico">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Corte Clásico</h3>
+            <div class="service-info">
+              <span>Duración: 30 min</span>
+            </div>
+            <div class="service-price">$9.500</div>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://www.menshairstyletrends.com/wp-content/uploads/2020/02/barberdjirlauw-mid-fade-haircut-for-men-1024x1024.jpg" alt="Fade + Barba">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Fade + Barba</h3>
+            <div class="service-info">
+              <span>Duración: 45 min</span>
+            </div>
+            <div class="service-price">$14.000</div>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://media.gq-magazine.co.uk/photos/5eb55adf10156a7ced1fbe88/master/w-1600,c-limit/20200508-beard-03.jpg" alt="Perfilado de barba">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Perfilado de Barba</h3>
+            <div class="service-info">
+              <span>Duración: 20 min</span>
+            </div>
+            <div class="service-price">$8.000</div>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://www.hairstylecamp.com/wp-content/uploads/Little-Boy-Haircuts.jpg" alt="Corte niño">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Corte Niño</h3>
+            <div class="service-info">
+              <span>Duración: 30 min</span>
+            </div>
+            <div class="service-price">$7.500</div>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://media.istockphoto.com/id/1344645506/photo/barber-cutting-hair-of-customer-at-barbershop.jpg?s=1024x1024&w=is&k=20&c=zAJ6a7XOu0_pBelZCo_Kbxm5qkWalOJ6LeGBgLQYpGI=" alt="Combo completo">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Combo Completo</h3>
+            <div class="service-info">
+              <span>Duración: 60 min</span>
+            </div>
+            <div class="service-price">$18.000</div>
+          </div>
+        </div>
+        
+        <div class="service-card">
+          <div class="service-img">
+            <img src="https://hairmanz.com/wp-content/uploads/2020/07/mens-hair-coloring-1024x1024.jpg" alt="Coloración">
+          </div>
+          <div class="service-content">
+            <span class="badge badge-accent service-badge">Servicio</span>
+            <h3 class="service-title">Coloración</h3>
+            <div class="service-info">
+              <span>Duración: 90 min</span>
+            </div>
+            <div class="service-price">$25.000</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section section--gray" id="about">
+    <div class="container">
+      <div class="about-container">
+        <div class="about-img">
+          <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2070&auto=format&fit=crop" alt="Nuestra barbería">
+        </div>
+        <div class="about-content">
+          <h2>Sobre Razor Elite</h2>
+          <p class="text-lg">Somos una barbería premium ubicada en el corazón de Santiago, dedicada a brindarte la mejor experiencia de corte y cuidado personal.</p>
+          <p>Desde 2018, hemos estado redefiniendo la experiencia de barbería tradicional con un enfoque moderno y atención personalizada. Nuestros barberos son verdaderos artistas con años de experiencia y capacitación continua.</p>
+          
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/><line x1="16" x2="2" y1="8" y2="22"/><line x1="17.5" x2="9" y1="15" y2="15"/></svg>
+              </div>
+              <div class="about-feature-content">
+                <h4>Barberos Expertos</h4>
+                <p>Nuestro equipo cuenta con años de experiencia y certificaciones internacionales.</p>
+              </div>
+            </div>
+            
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+              </div>
+              <div class="about-feature-content">
+                <h4>Productos Premium</h4>
+                <p>Utilizamos solo los mejores productos para garantizar resultados excepcionales.</p>
+              </div>
+            </div>
+            
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </div>
+              <div class="about-feature-content">
+                <h4>Servicio Personalizado</h4>
+                <p>Entendemos que cada cliente es único, por eso personalizamos cada servicio.</p>
+              </div>
+            </div>
+            
+            <div class="about-feature">
+              <div class="about-feature-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </div>
+              <div class="about-feature-content">
+                <h4>Ambiente Exclusivo</h4>
+                <p>Disfruta de un espacio diseñado para tu comodidad y relax durante tu visita.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Barbers Section -->
+  <section class="section" id="barberos">
+    <div class="container">
+      <div class="section-header">
+        <h2>Nuestros Barberos</h2>
+        <p>Conoce a nuestro equipo de profesionales altamente calificados, listos para brindarte el mejor servicio y experiencia.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="barber-card">
+          <div class="barber-img">
+            <img src="https://images.unsplash.com/photo-1583195763986-0231686dcd43?q=80&w=800&auto=format&fit=crop" alt="Diego">
+          </div>
+          <div class="barber-content">
+            <span class="badge badge-accent barber-badge">Barbero</span>
+            <h3 class="barber-name">Diego</h3>
+            <p class="barber-role">Especialista en Fade</p>
+            <div class="barber-socials">
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="barber-card">
+          <div class="barber-img">
+            <img src="https://images.unsplash.com/photo-1615813967515-e1838c1c5116?q=80&w=800&auto=format&fit=crop" alt="Martín">
+          </div>
+          <div class="barber-content">
+            <span class="badge badge-accent barber-badge">Barbero</span>
+            <h3 class="barber-name">Martín</h3>
+            <p class="barber-role">Maestro de Barba</p>
+            <div class="barber-socials">
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="barber-card">
+          <div class="barber-img">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" alt="Leo">
+          </div>
+          <div class="barber-content">
+            <span class="badge badge-accent barber-badge">Barbero</span>
+            <h3 class="barber-name">Leo</h3>
+            <p class="barber-role">Cortes Modernos</p>
+            <div class="barber-socials">
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+              </a>
+              <a href="#" class="barber-social">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section section--gray" id="testimonios">
+    <div class="container">
+      <div class="section-header">
+        <h2>Lo que dicen nuestros clientes</h2>
+        <p>Descubre lo que opinan nuestros clientes sobre su experiencia en Razor Elite.</p>
+      </div>
+      <div class="testimonials-container">
+        <div class="grid grid-3">
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">"La mejor barbería que he conocido. Diego es un artista con la navaja y siempre salgo con un corte impecable. El sistema de reservas online es super conveniente y el ambiente es inmejorable."</p>
+            <div class="testimonial-author">
+              <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?q=80&w=150&auto=format&fit=crop" alt="Matías Fernández" class="avatar">
+              <div class="testimonial-author-info">
+                <h4>Matías Fernández</h4>
+                <p>Cliente desde 2023</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">"Martín hace el mejor perfilado de barba de Santiago. El ambiente es genial y los precios son justos por la calidad que ofrecen. Los productos que utilizan son de primera calidad. Totalmente recomendado."</p>
+            <div class="testimonial-author">
+              <img src="https://images.unsplash.com/photo-1564564321837-a57b7070ac4f?q=80&w=150&auto=format&fit=crop" alt="Rodrigo Soto" class="avatar">
+              <div class="testimonial-author-info">
+                <h4>Rodrigo Soto</h4>
+                <p>Cliente desde 2022</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="testimonial-card">
+            <div class="testimonial-stars">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            </div>
+            <p class="testimonial-text">"Llevo a mi hijo regularmente y Leo siempre lo deja impecable. El sistema de reservas por WhatsApp es súper práctico y nos ahorra tiempo. El ambiente es agradable y mi hijo se siente cómodo. ¡Excelente servicio!"</p>
+            <div class="testimonial-author">
+              <img src="https://images.unsplash.com/photo-1566492031773-4f4e44671857?q=80&w=150&auto=format&fit=crop" alt="Carlos Mendoza" class="avatar">
+              <div class="testimonial-author-info">
+                <h4>Carlos Mendoza</h4>
+                <p>Cliente desde 2024</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Booking Section -->
+  <section class="section" id="reservar">
+    <div class="container">
+      <div class="section-header">
+        <h2>Reserva tu hora</h2>
+        <p>Agenda tu cita en minutos. Selecciona el servicio, barbero y horario que prefieras.</p>
+      </div>
+      <div class="booking-container">
+        <form class="booking-form" id="booking-form">
+          <div class="form-group">
+            <label class="form-label" for="client-name">Tu nombre</label>
+            <input type="text" class="form-control" id="client-name" placeholder="Nombre completo" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="client-phone">WhatsApp</label>
+            <input type="tel" class="form-control" id="client-phone" placeholder="+56 9 XXXX XXXX">
+          </div>
+          
+          <div class="form-group full">
+            <label class="form-label">Servicios (puedes elegir más de uno)</label>
+            <div class="service-options" id="service-options">
+              <div class="service-option">
+                <input type="checkbox" id="service-1" name="service" value="corte" data-price="9500" data-duration="30">
+                <label for="service-1">Corte Clásico — $9.500</label>
+              </div>
+              
+              <div class="service-option">
+                <input type="checkbox" id="service-2" name="service" value="fade" data-price="14000" data-duration="45">
+                <label for="service-2">Fade + Barba — $14.000</label>
+              </div>
+              
+              <div class="service-option">
+                <input type="checkbox" id="service-3" name="service" value="barba" data-price="8000" data-duration="20">
+                <label for="service-3">Perfilado de Barba — $8.000</label>
+              </div>
+              
+              <div class="service-option">
+                <input type="checkbox" id="service-4" name="service" value="nino" data-price="7500" data-duration="30">
+                <label for="service-4">Corte Niño — $7.500</label>
+              </div>
+              
+              <div class="service-option">
+                <input type="checkbox" id="service-5" name="service" value="combo" data-price="18000" data-duration="60">
+                <label for="service-5">Combo Completo — $18.000</label>
+              </div>
+              
+              <div class="service-option">
+                <input type="checkbox" id="service-6" name="service" value="color" data-price="25000" data-duration="90">
+                <label for="service-6">Coloración — $25.000</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group full">
+            <label class="form-label">Barbero</label>
+            <div class="barber-options" id="barber-options">
+              <div class="barber-option">
+                <input type="radio" id="barber-1" name="barber" value="diego" checked>
+                <label for="barber-1">
+                  <img src="https://images.unsplash.com/photo-1583195763986-0231686dcd43?q=80&w=800&auto=format&fit=crop" alt="Diego" class="barber-avatar">
+                  <div class="barber-info">
+                    <h4>Diego</h4>
+                    <p>Especialista en Fade</p>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="barber-option">
+                <input type="radio" id="barber-2" name="barber" value="martin">
+                <label for="barber-2">
+                  <img src="https://images.unsplash.com/photo-1615813967515-e1838c1c5116?q=80&w=800&auto=format&fit=crop" alt="Martín" class="barber-avatar">
+                  <div class="barber-info">
+                    <h4>Martín</h4>
+                    <p>Maestro de Barba</p>
+                  </div>
+                </label>
+              </div>
+              
+              <div class="barber-option">
+                <input type="radio" id="barber-3" name="barber" value="leo">
+                <label for="barber-3">
+                  <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" alt="Leo" class="barber-avatar">
+                  <div class="barber-info">
+                    <h4>Leo</h4>
+                    <p>Cortes Modernos</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="booking-date">Fecha</label>
+            <input type="date" class="form-control" id="booking-date" required>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Horario disponible</label>
+            <div class="time-slots" id="time-slots">
+              <div class="time-slot">
+                <input type="radio" id="time-1" name="time" value="10:00">
+                <label for="time-1">10:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-2" name="time" value="10:30">
+                <label for="time-2">10:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-3" name="time" value="11:00">
+                <label for="time-3">11:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-4" name="time" value="11:30">
+                <label for="time-4">11:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-5" name="time" value="12:00">
+                <label for="time-5">12:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-6" name="time" value="12:30">
+                <label for="time-6">12:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-7" name="time" value="15:00">
+                <label for="time-7">15:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-8" name="time" value="15:30">
+                <label for="time-8">15:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-9" name="time" value="16:00">
+                <label for="time-9">16:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-10" name="time" value="16:30">
+                <label for="time-10">16:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-11" name="time" value="17:00">
+                <label for="time-11">17:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-12" name="time" value="17:30">
+                <label for="time-12">17:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-13" name="time" value="18:00">
+                <label for="time-13">18:00</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-14" name="time" value="18:30">
+                <label for="time-14">18:30</label>
+              </div>
+              
+              <div class="time-slot">
+                <input type="radio" id="time-15" name="time" value="19:00">
+                <label for="time-15">19:00</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group full">
+            <div class="booking-summary">
+              <h4 class="booking-summary-title">Resumen de tu reserva</h4>
+              <div class="booking-summary-row">
+                <span class="booking-summary-label">Servicios:</span>
+                <span class="booking-summary-value" id="summary-services">Ninguno seleccionado</span>
+              </div>
+              
+              <div class="booking-summary-row">
+                <span class="booking-summary-label">Duración:</span>
+                <span class="booking-summary-value" id="summary-duration">0 min</span>
+              </div>
+              
+              <div class="booking-summary-row">
+                <span class="booking-summary-label">Barbero:</span>
+                <span class="booking-summary-value" id="summary-barber">Diego</span>
+              </div>
+              
+              <div class="booking-summary-row">
+                <span class="booking-summary-label">Fecha y hora:</span>
+                <span class="booking-summary-value" id="summary-datetime">No seleccionado</span>
+              </div>
+              
+              <div class="booking-summary-total">
+                <span>Total:</span>
+                <span class="booking-summary-price" id="summary-price">$0</span>
+              </div>
+            </div>
+            
+            <div class="booking-notification" id="booking-notification">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <span>¡Reserva enviada con éxito! Hemos abierto WhatsApp con todos los detalles.</span>
+            </div>
+          </div>
+          
+          <div class="form-group full">
+            <div class="flex gap-md">
+              <button type="button" class="btn btn-primary" id="book-whatsapp">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+                Agendar por WhatsApp
+              </button>
+              <a id="ics-download" class="btn btn-secondary" download="reserva.ics" style="display: none;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+                Añadir al calendario
+              </a>
+              <button type="button" class="btn btn-light" id="reset-form">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 21h5v-5"/></svg>
+                Limpiar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section section--gray" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <h2>Contacto y Ubicación</h2>
+        <p>Encuéntranos en el corazón de Santiago. Contáctanos para cualquier consulta o información adicional.</p>
+      </div>
+      <div class="contact-container">
+        <div class="contact-map">
+          <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=-70.654%2C-33.445%2C-70.634%2C-33.435&layer=mapnik&marker=-33.44%2C-70.644" allowfullscreen></iframe>
+        </div>
+        <div class="contact-info">
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <h4>Dirección</h4>
+              <p>Av. Providencia 2345, Providencia<br>Santiago, Chile</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <h4>Contacto</h4>
+              <p>WhatsApp: +56 9 1234 5678<br>Email: hola@razorelite.cl</p>
+            </div>
+          </div>
+          
+          <div class="contact-card">
+            <div class="contact-card-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div class="contact-card-content">
+              <h4>Horarios</h4>
+              <p>Lunes a Viernes: 10:00 - 19:30<br>Sábados: 10:00 - 16:00<br>Domingos: Cerrado</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="footer-logo">
+            <span class="logo-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 21h10V11l-5-7-5 7v10Z"/><path d="M11 13h2"/></svg>
+            </span>
+            <span>Razor Elite</span>
+          </a>
+          <p class="footer-about">Somos una barbería premium ubicada en Santiago. Nos especializamos en cortes clásicos, fades, arreglo de barba y más. Nuestro equipo de barberos profesionales está comprometido con brindarte la mejor experiencia.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+            </a>
+            <a href="#" class="footer-social">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="footer-social">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6"/><line x1="2" x2="20" y1="20" y2="20"/></svg>
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="footer-heading">Servicios</h3>
+          <div class="footer-links">
+            <a href="#servicios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Corte Clásico
+            </a>
+            <a href="#servicios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Fade + Barba
+            </a>
+            <a href="#servicios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Perfilado de Barba
+            </a>
+            <a href="#servicios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Combo Completo
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="footer-heading">Enlaces</h3>
+          <div class="footer-links">
+            <a href="#home" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Inicio
+            </a>
+            <a href="#servicios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Servicios
+            </a>
+            <a href="#barberos" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Barberos
+            </a>
+            <a href="#testimonios" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Testimonios
+            </a>
+            <a href="#reservar" class="footer-link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              Reservar
+            </a>
+          </div>
+        </div>
+        
+        <div class="footer-col">
+          <h3 class="footer-heading">Contacto</h3>
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <p>Av. Providencia 2345, Providencia, Santiago</p>
+          </div>
+          
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9L3 21"/></svg>
+            </div>
+            <p>+56 9 1234 5678</p>
+          </div>
+          
+          <div class="footer-contact-item">
+            <div class="footer-contact-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <p>hola@razorelite.cl</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <div class="footer-copyright">© 2025 Razor Elite — Todos los derechos reservados.</div>
+        <div class="footer-bottom-links">
+          <a href="#" class="footer-bottom-link">Términos y Condiciones</a>
+          <a href="#" class="footer-bottom-link">Política de Privacidad</a>
+          <a href="#" class="footer-bottom-link">Mapa del Sitio</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Navigation
+    const navbar = document.getElementById('navbar');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const overlay = document.getElementById('overlay');
+    const navLinks = document.querySelectorAll('.nav-link, .mobile-nav-link');
+    
+    // Sticky navbar on scroll
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Mobile menu toggle
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('active');
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    mobileMenuClose.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+    
+    overlay.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+    
+    // Smooth scroll for navigation links
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href');
+        
+        if (targetId.startsWith('#')) {
+          e.preventDefault();
+          
+          const targetSection = document.querySelector(targetId);
+          if (targetSection) {
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            window.scrollTo({
+              top: targetSection.offsetTop - 80,
+              behavior: 'smooth'
+            });
+          }
+        }
+      });
+    });
+    
+    // Booking form functionality
+    const bookingForm = document.getElementById('booking-form');
+    const serviceOptions = document.querySelectorAll('input[name="service"]');
+    const barberOptions = document.querySelectorAll('input[name="barber"]');
+    const timeSlots = document.querySelectorAll('input[name="time"]');
+    const bookingDate = document.getElementById('booking-date');
+    const bookWhatsAppBtn = document.getElementById('book-whatsapp');
+    const resetFormBtn = document.getElementById('reset-form');
+    const icsDownload = document.getElementById('ics-download');
+    const bookingNotification = document.getElementById('booking-notification');
+    
+    // Summary elements
+    const summaryServices = document.getElementById('summary-services');
+    const summaryDuration = document.getElementById('summary-duration');
+    const summaryBarber = document.getElementById('summary-barber');
+    const summaryDatetime = document.getElementById('summary-datetime');
+    const summaryPrice = document.getElementById('summary-price');
+    
+    // Set min date to today
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    const todayFormatted = `${yyyy}-${mm}-${dd}`;
+    bookingDate.min = todayFormatted;
+    
+    // Set default date to tomorrow
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const tomorrowYYYY = tomorrow.getFullYear();
+    const tomorrowMM = String(tomorrow.getMonth() + 1).padStart(2, '0');
+    const tomorrowDD = String(tomorrow.getDate()).padStart(2, '0');
+    const tomorrowFormatted = `${tomorrowYYYY}-${tomorrowMM}-${tomorrowDD}`;
+    bookingDate.value = tomorrowFormatted;
+    
+    // Update booking summary
+    function updateBookingSummary() {
+      // Services
+      const selectedServices = Array.from(serviceOptions)
+        .filter(option => option.checked)
+        .map(option => option.closest('.service-option').querySelector('label').textContent);
+      
+      if (selectedServices.length > 0) {
+        summaryServices.textContent = selectedServices.join(', ');
+      } else {
+        summaryServices.textContent = 'Ninguno seleccionado';
+      }
+      
+      // Duration
+      const totalDuration = Array.from(serviceOptions)
+        .filter(option => option.checked)
+        .reduce((total, option) => total + parseInt(option.dataset.duration), 0);
+      
+      summaryDuration.textContent = totalDuration > 0 ? `${totalDuration} min` : '0 min';
+      
+      // Barber
+      const selectedBarber = document.querySelector('input[name="barber"]:checked');
+      if (selectedBarber) {
+        summaryBarber.textContent = selectedBarber.closest('.barber-option').querySelector('h4').textContent;
+      }
+      
+      // Date and time
+      const selectedDate = bookingDate.value;
+      const selectedTime = document.querySelector('input[name="time"]:checked');
+      
+      if (selectedDate && selectedTime) {
+        const dateParts = selectedDate.split('-');
+        const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+        summaryDatetime.textContent = `${formattedDate} - ${selectedTime.value}`;
+      } else {
+        summaryDatetime.textContent = 'No seleccionado';
+      }
+      
+      // Price
+      const totalPrice = Array.from(serviceOptions)
+        .filter(option => option.checked)
+        .reduce((total, option) => total + parseInt(option.dataset.price), 0);
+      
+      summaryPrice.textContent = totalPrice > 0 ? `${totalPrice.toLocaleString('es-CL')}` : '$0';
+    }
+    
+    // Event listeners for form updates
+    serviceOptions.forEach(option => {
+      option.addEventListener('change', updateBookingSummary);
+    });
+    
+    barberOptions.forEach(option => {
+      option.addEventListener('change', updateBookingSummary);
+    });
+    
+    timeSlots.forEach(slot => {
+      slot.addEventListener('change', updateBookingSummary);
+    });
+    
+    bookingDate.addEventListener('change', updateBookingSummary);
+    
+    // Function to create ICS file
+    function createICS(title, description, location, start, duration) {
+      const startDate = new Date(start);
+      const endDate = new Date(startDate.getTime() + duration * 60000);
+      
+      const formatDate = (date) => {
+        return date.toISOString().replace(/-|:|\.\d+/g, '');
+      };
+      
+      const icsContent = [
+        'BEGIN:VCALENDAR',
+        'VERSION:2.0',
+        'PRODID:-//RazorElite//NONSGML Calendar//ES',
+        'CALSCALE:GREGORIAN',
+        'BEGIN:VEVENT',
+        `SUMMARY:${title}`,
+        `DESCRIPTION:${description}`,
+        `LOCATION:${location}`,
+        `DTSTART:${formatDate(startDate)}`,
+        `DTEND:${formatDate(endDate)}`,
+        `DTSTAMP:${formatDate(new Date())}`,
+        'END:VEVENT',
+        'END:VCALENDAR'
+      ].join('\r\n');
+      
+      return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(icsContent);
+    }
+    
+    // WhatsApp booking
+    bookWhatsAppBtn.addEventListener('click', () => {
+      const clientName = document.getElementById('client-name').value.trim();
+      const clientPhone = document.getElementById('client-phone').value.trim();
+      const selectedServices = Array.from(serviceOptions).filter(option => option.checked);
+      const selectedTime = document.querySelector('input[name="time"]:checked');
+      const selectedDate = bookingDate.value;
+      const selectedBarber = document.querySelector('input[name="barber"]:checked');
+      
+      if (!clientName) {
+        alert('Por favor, ingresa tu nombre');
+        return;
+      }
+      
+      if (selectedServices.length === 0) {
+        alert('Por favor, selecciona al menos un servicio');
+        return;
+      }
+      
+      if (!selectedTime) {
+        alert('Por favor, selecciona un horario');
+        return;
+      }
+      
+      // Format services for WhatsApp message
+      const servicesText = selectedServices.map(service => {
+        const serviceLabel = service.closest('.service-option').querySelector('label').textContent;
+        return serviceLabel;
+      }).join('\n- ');
+      
+      // Format date
+      const dateParts = selectedDate.split('-');
+      const formattedDate = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+      
+      // Calculate total price and duration
+      const totalPrice = selectedServices.reduce((total, service) => total + parseInt(service.dataset.price), 0);
+      const totalDuration = selectedServices.reduce((total, service) => total + parseInt(service.dataset.duration), 0);
+      
+      // Create WhatsApp message
+      const message = `Hola! Soy ${clientName}${clientPhone ? ` (${clientPhone})` : ''}.
+Quiero reservar en Razor Elite.
+
+*Servicios:*
+- ${servicesText}
+
+*Barbero:* ${selectedBarber.closest('.barber-option').querySelector('h4').textContent}
+*Fecha y hora:* ${formattedDate} ${selectedTime.value}
+*Duración total:* ${totalDuration} min
+*Total estimado:* ${totalPrice.toLocaleString('es-CL')}
+
+¡Gracias!`;
+      
+      // Create ICS file
+      const icsTitle = `Reserva en Razor Elite - ${selectedBarber.closest('.barber-option').querySelector('h4').textContent}`;
+      const icsDescription = `Servicios: ${selectedServices.map(s => s.closest('.service-option').querySelector('label').textContent.split(' —')[0]).join(', ')}. Total: ${totalPrice.toLocaleString('es-CL')}`;
+      const icsLocation = 'Av. Providencia 2345, Providencia, Santiago';
+      const icsStart = `${selectedDate}T${selectedTime.value}:00`;
+      
+      const icsUrl = createICS(icsTitle, icsDescription, icsLocation, icsStart, totalDuration);
+      icsDownload.href = icsUrl;
+      icsDownload.style.display = 'inline-flex';
+      
+      // Show notification
+      bookingNotification.classList.add('active');
+      setTimeout(() => {
+        bookingNotification.classList.remove('active');
+      }, 5000);
+      
+      // Open WhatsApp
+      const whatsappUrl = `https://wa.me/56912345678?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    });
+    
+    // Reset form
+    resetFormBtn.addEventListener('click', () => {
+      serviceOptions.forEach(option => {
+        option.checked = false;
+      });
+      
+      barberOptions[0].checked = true;
+      bookingDate.value = tomorrowFormatted;
+      
+      timeSlots.forEach(slot => {
+        slot.checked = false;
+      });
+      
+      document.getElementById('client-name').value = '';
+      document.getElementById('client-phone').value = '';
+      
+      icsDownload.style.display = 'none';
+      
+      updateBookingSummary();
+    });
+    
+    // Initialize booking summary
+    updateBookingSummary();
+  </script>
+</body>
+</html>
